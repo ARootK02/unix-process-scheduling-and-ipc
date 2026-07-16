@@ -1,0 +1,29 @@
+# Editor settings
+.vscode/
+
+# Compiled files
+*.o
+*.exe
+*.out
+
+# Part I generated executables
+part-1/monte-carlo/integral_mc_shm
+part-1/monte-carlo/integral_mc_shm_sem
+
+# Part II generated executables
+part-2/scheduler/scheduler
+part-2/scheduler/scheduler_io
+part-2/workloads/work1
+part-2/workloads/work2
+part-2/workloads/work3
+part-2/workloads/work4
+part-2/workloads/work5
+part-2/workloads/work6
+part-2/workloads/work7
+part-2/workloads/work5x2_io
+
+# OS/temp files
+.DS_Store
+Thumbs.db
+*.tmp
+~$*

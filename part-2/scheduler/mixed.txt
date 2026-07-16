@@ -1,0 +1,3 @@
+../workloads/work5x2_io
+../workloads/work7
+../workloads/work6

@@ -1,0 +1,95 @@
+SX = 2
+SY = 5
+
+pot_portions = 0
+beans = 0
+carrots = 0
+
+pot_capacity = SX + 5
+beans_needed = SY + 3
+carrots_needed = SY
+helper_capacity = SY
+
+mutex_pot
+mutex_ingredients
+empty_pot
+ingredients_ready
+food_ready
+helper_beans_needed
+helper_carrots_needed
+
+
+take_food():
+    serve one portion from the shared pot
+
+
+cook_food():
+    prepare food after all required ingredients are available
+
+
+helper(amount):
+    transfer the requested amount of ingredients from storage
+
+
+diner_process():
+    while true:
+        wait(mutex_pot)
+
+        if pot_portions == 0:
+            signal(empty_pot)
+            signal(mutex_pot)
+
+            wait(food_ready)
+            wait(mutex_pot)
+
+        take_food()
+        pot_portions = pot_portions - 1
+
+        signal(mutex_pot)
+
+
+chef_process():
+    while true:
+        wait(empty_pot)
+
+        signal(helper_beans_needed)
+        signal(helper_carrots_needed)
+
+        wait(ingredients_ready)
+
+        cook_food()
+
+        wait(mutex_pot)
+        pot_portions = pot_capacity
+        signal(food_ready)
+        signal(mutex_pot)
+
+
+helper_beans_process():
+    while true:
+        wait(helper_beans_needed)
+
+        wait(mutex_ingredients)
+
+        helper(beans_needed)
+        beans = beans + beans_needed
+
+        if beans >= beans_needed and carrots >= carrots_needed:
+            signal(ingredients_ready)
+
+        signal(mutex_ingredients)
+
+
+helper_carrots_process():
+    while true:
+        wait(helper_carrots_needed)
+
+        wait(mutex_ingredients)
+
+        helper(carrots_needed)
+        carrots = carrots + carrots_needed
+
+        if beans >= beans_needed and carrots >= carrots_needed:
+            signal(ingredients_ready)
+
+        signal(mutex_ingredients)

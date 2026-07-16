@@ -1,0 +1,7 @@
+../workloads/work7
+../workloads/work6
+../workloads/work5
+../workloads/work4
+../workloads/work3
+../workloads/work2
+../workloads/work1
